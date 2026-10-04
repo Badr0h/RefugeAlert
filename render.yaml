@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: RefugeAlert
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    repo: https://github.com/Badr0h/RefugeAlert
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: FRONTEND_URL
+        value: https://alertegr20.com
+      - key: MAIL_FROM
+        value: RefugeAlert <onboarding@resend.dev>
+      - key: RESEND_API_KEY
+        sync: false
+      - key: PADDLE_API_KEY
+        sync: false
+      - key: PADDLE_WEBHOOK_SECRET
+        sync: false
+      - key: SAISON_FIN
+        value: "2026-10-04"
+      - key: PADDLE_API_BASE_URL
+        value: https://api.paddle.com
+      - key: PADDLE_PRICE_ID
+        value: pri_01m3f5q6n4wfym8nmp8mq16j84
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: RefugeAlert-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: RefugeAlert-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: RefugeAlert-db
+          property: password

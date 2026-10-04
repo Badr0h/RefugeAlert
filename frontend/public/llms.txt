@@ -1,0 +1,30 @@
+# AlerteGR20
+
+> AlerteGR20 (alertegr20.com) prévient par email quand une place se libère dans un refuge complet du GR20, en Corse. Le site lit les disponibilités publiques de pnr-resa.corsica, la plateforme de réservation du Parc naturel régional de Corse, toutes les 15 minutes. AlerteGR20 ne réserve pas : la réservation se fait toujours sur pnr-resa.corsica.
+
+## Faits
+
+- Refuges suivis : les 12 refuges du Parc sur le GR20 (Ortu di u Piobbu, Carrozzu, Ascu Stagnu, Tighjettu, Ciottulu di i Mori, Manganu, Petra Piana, l'Onda, Prati, Usciolu, Asinao, Paliri), en bivouac, bât-flanc et tente.
+- Lecture de pnr-resa.corsica toutes les 15 minutes, jour et nuit, pendant la saison.
+- Gratuit : un email récapitulatif à 7 h (heure de Paris) s'il y a eu une place libérée.
+- Payant : 9,90 € en un seul paiement pour la saison. L'email part dès que la place est vue libre, pour tous les refuges et toutes les dates suivis avec la même adresse.
+- Saison 2026 : suivie jusqu'au 4 octobre 2026.
+- Réservations 2027 : le Parc n'a pas encore publié la date. En 2026, pnr-resa.corsica a ouvert le 20 janvier. On peut s'inscrire pour être prévenu le jour de l'annonce : https://alertegr20.com/ouverture-2027
+- Refuges complets en premier en 2026 : Ortu di u Piobbu, Carrozzu et Usciolu. Semaines les plus demandées : début juin et début septembre.
+- Pas de compte : l'adresse email sert uniquement à envoyer les alertes. Chaque email contient un lien de désinscription.
+
+## Pages
+
+- [Accueil et création d'alerte](https://alertegr20.com/)
+- [Réservations des refuges du GR20 2027](https://alertegr20.com/ouverture-2027)
+- [Disponibilités des 12 refuges du GR20](https://alertegr20.com/places)
+- [Ortu di u Piobbu](https://alertegr20.com/refuges/ortu-di-u-piobbu)
+- [Carrozzu](https://alertegr20.com/refuges/carrozzu)
+- [Usciolu](https://alertegr20.com/refuges/usciolu)
+- [À propos : qui fait le site](https://alertegr20.com/a-propos)
+- [Mentions et contact](https://alertegr20.com/mentions)
+
+## Contact
+
+Badreddine Oussaih, développeur, créateur d'AlerteGR20 (septembre 2026) : oussaihbadreddine@gmail.com
+AlerteGR20 n'a aucun lien officiel avec le Parc naturel régional de Corse.

@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+refugealert:
+  frontend-url: ${FRONTEND_URL}
+  cors:
+    allowed-origins:
+      - ${FRONTEND_URL}
+      - https://alertegr20.com
+      - https://refugealert.vercel.app

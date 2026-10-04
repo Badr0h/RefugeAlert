@@ -1,0 +1,38 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/refugealert}
+    username: ${SPRING_DATASOURCE_USERNAME:refugealert}
+    password: ${SPRING_DATASOURCE_PASSWORD:refugealert}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.auto_quote_keyword: true
+  flyway:
+    enabled: true
+
+refugealert:
+  sync:
+    delay-ms: 900000
+    initial-delay-ms: 20000
+  pnr:
+    base-url: https://pnr-resa.corsica
+    user-agent: RefugeAlert/0.1 (personal availability monitor)
+    timeout: 15s
+  mail:
+    from: ${MAIL_FROM:RefugeAlert <onboarding@resend.dev>}
+    resend-api-key: ${RESEND_API_KEY:}
+  saison:
+    fin: ${SAISON_FIN:2026-10-04}
+  paddle:
+    api-key: ${PADDLE_API_KEY:}
+    webhook-secret: ${PADDLE_WEBHOOK_SECRET:}
+    price-id: ${PADDLE_PRICE_ID:}
+    api-base-url: ${PADDLE_API_BASE_URL:https://api.paddle.com}

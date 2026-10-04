@@ -1,0 +1,16 @@
+{
+  "name": "alertegr20-e2e",
+  "version": "1.0.0",
+  "description": "Tests E2E Playwright contre la production alertegr20.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

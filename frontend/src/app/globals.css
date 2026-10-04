@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --mist: #e4ece8;
+  --ink: #1c2b24;
+  --pine: #1e4636;
+  --stone: #5e6f68;
+  --paper: #f3f7f5;
+  --blaze: #d10000;
+  --line: #c5d2cb;
+  --ridge-far: #d8e2dc;
+  --ridge-near: #c3d2ca;
+}
+
+@theme inline {
+  --color-mist: var(--mist);
+  --color-ink: var(--ink);
+  --color-pine: var(--pine);
+  --color-stone: var(--stone);
+  --color-paper: var(--paper);
+  --color-blaze: var(--blaze);
+  --color-line: var(--line);
+  --color-ridge-far: var(--ridge-far);
+  --color-ridge-near: var(--ridge-near);
+  --font-sign: var(--font-sign);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--mist);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Le scroll horizontal des tableaux de places reste utilisable au clavier. */
+.scroll-x:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 2px;
+}

@@ -1,0 +1,17 @@
+# Base locale uniquement. Ne définit aucune variable de l'application.
+# En prod (Railway, Render), le backend lit SPRING_DATASOURCE_*, FRONTEND_URL,
+# PORT et SPRING_PROFILES_ACTIVE=prod depuis la plateforme, pas depuis ce fichier.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: refugealert
+      POSTGRES_USER: refugealert
+      POSTGRES_PASSWORD: refugealert
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
