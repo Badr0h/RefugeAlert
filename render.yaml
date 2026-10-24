@@ -16,7 +16,7 @@ services:
       - key: FRONTEND_URL
         value: https://alertegr20.com
       - key: MAIL_FROM
-        value: RefugeAlert <onboarding@resend.dev>
+        value: AlerteGR20 <alertes@alertegr20.com>
       - key: RESEND_API_KEY
         sync: false
       - key: PADDLE_API_KEY

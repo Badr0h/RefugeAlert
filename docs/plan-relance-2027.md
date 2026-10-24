@@ -2,6 +2,15 @@
 
 Écrit le 24 octobre 2026, après la relecture critique de Claude et la vérification des chiffres réels. Ce plan remplace la première version (150 à 190 heures), trop grosse pour une seule personne avant le PFE.
 
+## Journal
+
+- **24 octobre 2026.** Question de départ : relancer le projet gratuitement avec de la pub, par exemple au clic sur le bouton d'inscription, face au concurrent gratuit Vigie GR20.
+  - Pub au clic écartée : elle casse l'inscription au moment clé, va contre les règles d'AdSense et rapporterait quelques dizaines d'euros par saison au trafic attendu.
+  - Premier plan (version complète, 150 à 190 h), relu par Claude : jugé 2 à 3 fois trop gros, avec plusieurs erreurs (pourboire via Paddle, email de relance, Telegram, Neon gratuit, grille déjà existante).
+  - Chiffres réels relevés dans Resend et Paddle : aucune preuve de demande (voir plus bas).
+  - Décision : version minimale d'environ 40 h, avec deux dates de décision.
+  - Fait le jour même : la liste d'ouverture tourne sans l'API, avec double confirmation, testée en production (bloc 1).
+
 **Objectif :** mesurer la demande avec un budget fixe d'environ 40 heures et moins de 100 € de frais, puis décider aux dates prévues. Ce n'est pas un projet de revenu.
 
 ## Les chiffres réels de 2026
@@ -34,22 +43,25 @@ Les seuils sont arbitraires, mais fixés d'avance. On ne les change pas en cours
 
 ## Le travail, dans l'ordre
 
-### Bloc 1 — La liste d'ouverture, sans l'API (environ 4 h) — fait, à déployer
+### Bloc 1 — La liste d'ouverture, sans l'API (environ 4 h) — en ligne depuis le 24 octobre 2026
 
 Le formulaire appelait l'API Spring Boot, arrêtée : chaque visiteur voyait « Le serveur ne répond pas ».
 
 - [x] Route `POST /api/ouverture` sur Vercel. Elle envoie un email de confirmation via Resend, au plus un par adresse et par jour.
 - [x] Page `/ouverture-2027/confirmer` : l'adresse n'entre dans la liste Resend qu'après un clic sur « Confirmer » (double confirmation, rien n'est stocké avant).
 - [x] Champ piège invisible contre les robots. Jeton signé, valable 7 jours, avec tests.
-- [ ] Créer la liste « Ouverture 2027 » dans Resend, une clé API, et les variables Vercel : `RESEND_API_KEY`, `RESEND_OUVERTURE_SEGMENT_ID`, `OUVERTURE_TOKEN_SECRET`, `MAIL_FROM`.
-- [ ] Ajouter à la liste les 2 inscrits d'octobre (ils ont déjà demandé l'email d'ouverture).
-- [ ] Le jour J : un broadcast Resend vers la liste, avec `{{{RESEND_UNSUBSCRIBE_URL}}}`.
+- [x] Créer la liste « AlerteGR20 — Ouverture 2027 » dans Resend, une clé API, et les variables Vercel : `RESEND_API_KEY`, `RESEND_OUVERTURE_SEGMENT_ID`, `OUVERTURE_TOKEN_SECRET`, `MAIL_FROM`.
+- [x] Ajouter à la liste les 2 inscrits d'octobre (ils ont déjà demandé l'email d'ouverture).
+- [x] Test réel en production : email de confirmation livré, confirmation enregistrée, adresse de test retirée ensuite.
+- [ ] Le jour J : un broadcast Resend vers la liste. Procédure dans [liste-ouverture.md](liste-ouverture.md).
 
 ### Bloc 2 — Diffusion (environ 5 h, plus du temps hors code)
 
 - [ ] Email au Parc : présentation du service, fréquence de relevé, contact.
 - [ ] Version anglaise du formulaire d'ouverture.
-- [ ] Décembre : contacts mongr20 / le-gr20, groupes Facebook, réponses sur les forums, comme dans le plan marketing.
+- [ ] Décembre : contacts mongr20 / le-gr20, groupes Facebook, réponses sur les forums. Les liens pointent vers `/ouverture-2027`, pas vers l'accueil.
+
+Le plan marketing 12 mois et le guide de saison mois par mois, écrits lors d'une session précédente, n'ont jamais été commités et ne sont plus sur le disque. Ils reposaient sur l'offre payante à 9,90 € : à réécrire seulement si le seuil du 31 décembre est atteint.
 
 ### Bloc 3 — Fiabiliser la chaîne d'envoi (environ 15 h)
 
