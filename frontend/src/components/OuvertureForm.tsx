@@ -2,13 +2,12 @@
 
 import { FormEvent, useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 const fieldClass =
   "min-h-12 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine";
 
 export function OuvertureForm() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [pending, setPending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
 
@@ -16,16 +15,11 @@ export function OuvertureForm() {
     event.preventDefault();
     setPending(true);
     setResult(null);
-    if (!API_URL) {
-      setResult({ ok: false, message: "Le serveur ne répond pas. Réessayez dans un instant." });
-      setPending(false);
-      return;
-    }
     try {
-      const response = await fetch(`${API_URL}/api/ouverture`, {
+      const response = await fetch("/api/ouverture", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website }),
       });
       const payload = (await response.json().catch(() => null)) as { message?: string } | null;
       if (!response.ok) {
@@ -35,7 +29,7 @@ export function OuvertureForm() {
       setResult({
         ok: true,
         message:
-          "C'est noté. Un email de confirmation part tout de suite. Regardez dans les indésirables s'il n'arrive pas.",
+          "Presque fini : cliquez sur le lien de l'email qu'on vient d'envoyer. Regardez dans les indésirables s'il n'arrive pas.",
       });
     } catch {
       setResult({ ok: false, message: "Le serveur ne répond pas. Réessayez dans un instant." });
@@ -61,6 +55,20 @@ export function OuvertureForm() {
         />
       </label>
 
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>
+          Site web
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+          />
+        </label>
+      </div>
+
       {result ? (
         <p className={result.ok ? "text-base text-pine" : "text-base text-blaze"} role="status">
           {result.message}
@@ -75,8 +83,8 @@ export function OuvertureForm() {
         {pending ? "Enregistrement…" : "Prévenez-moi le jour de l'ouverture"}
       </button>
       <p className="text-base leading-relaxed text-stone">
-        Gratuit. Un email de confirmation, puis un seul email le jour de l&apos;annonce du Parc. Le
-        lien de désinscription est dans chaque email.
+        Gratuit. Vous confirmez votre adresse en un clic, puis vous recevez un seul email le jour de
+        l&apos;annonce du Parc. Le lien de désinscription est dans cet email.
       </p>
     </form>
   );
