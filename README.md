@@ -1,41 +1,84 @@
 # AlerteGR20
 
-AlerteGR20 surveille les places des refuges du GR20. Quand une place passe de complet à libre sur le site du Parc naturel régional de Corse, un email part. Il n'y a pas de compte : l'adresse email est l'identifiant. Le site ne réserve pas à la place du randonneur.
+**Status: paused after the 2026 season. Source kept as a personal project.**
 
-Le site est sur https://alertegr20.com. Les places officielles sont sur https://pnr-resa.corsica.
+AlerteGR20 watched the public availability of the 12 refuges on the GR20 (Corsica) and emailed hikers when a fully booked night opened up again. Refuges are booked on the Regional Natural Park's site, [pnr-resa.corsica](https://pnr-resa.corsica); AlerteGR20 never booked on anyone's behalf. There were no accounts: the email address was the identifier.
 
-## État au 24 octobre 2026
+The site [alertegr20.com](https://alertegr20.com) is still online with one feature: a double opt-in list that sends a single email on the day the Park opens bookings for 2027. The Spring Boot API is stopped, so refuge alerts, the availability board and payment are offline.
 
-- **Le site est en ligne** sur Vercel (projet `refugealert`, déployé à chaque push sur `main`).
-- **La liste « prévenez-moi le jour de l'ouverture » fonctionne**, sans l'API. Elle tourne sur Vercel et Resend, avec double confirmation, plafond quotidien et suivi de la source de chaque inscrit. Voir [docs/liste-ouverture.md](docs/liste-ouverture.md). Ce qui est gardé est expliqué sur [/confidentialite](https://alertegr20.com/confidentialite).
-- **L'API Spring Boot est arrêtée** depuis la fin de la saison 2026. Les alertes refuge, le tableau des places et le paiement ne marchent pas tant qu'elle n'est pas relancée. Le site l'indique hors saison au lieu d'afficher une erreur.
-- **Le projet est en phase de test de la demande.** Décisions le 31 décembre 2026 (100 inscrits confirmés), le 31 janvier et le 28 février 2027. Voir [docs/plan-relance-2027.md](docs/plan-relance-2027.md).
-- **Piste de revenu : un pilote payant sur Carros de Foc** (Pyrénées catalanes) pour l'été 2027, où aucune alerte n'existe. Voir [docs/plan-pilote-carros-de-foc.md](docs/plan-pilote-carros-de-foc.md).
+## Architecture
 
-## Code
-
-- `frontend/` — le site, en Next.js. Il contient aussi la route `/api/ouverture` de la liste d'ouverture. Voir [frontend/README.md](frontend/README.md).
-- `backend/` — l'API, en Spring Boot : elle lit les places sur pnr-resa.corsica, envoie les alertes et gère le paiement Paddle.
-- `e2e/` — tests Playwright contre la production.
-- `docs/` — le plan de relance et la procédure de la liste d'ouverture.
-
-## Où sont les choses
-
-| Service | Usage |
-| --- | --- |
-| Vercel, projet `refugealert` | Site et route de la liste d'ouverture. Variables : voir `frontend/README.md` |
-| Resend, domaine `alertegr20.com` | Tous les emails, depuis `AlerteGR20 <alertes@alertegr20.com>` |
-| Resend, liste « AlerteGR20 — Ouverture 2027 » | Les adresses confirmées pour l'email du jour d'ouverture |
-| Render, service `RefugeAlert` (`render.yaml`) | Ancien hébergement de l'API, arrêté |
-| Paddle | Ancien prix « Alerte immédiate » à 9,90 €, aucun paiement reçu en 2026 |
-| Google Search Console | Vérification par balise dans `frontend/src/app/layout.tsx` |
-
-## Lancer en local
-
-```bash
-docker compose up -d          # Postgres sur le port 5433
-cd backend && mvn spring-boot:run
-cd frontend && npm install && npm run dev
+```
+                 ┌────────────────────────────── Vercel ──────────────────────────────┐
+ Browser ──────► │ Next.js 15 (frontend/)                                              │
+                 │  • pages, SEO, refuge pages                                         │
+                 │  • /api/ouverture + /ouverture-2027/confirmer ──► Resend (contacts, │
+                 │    opening-day list, signed HMAC links)            emails)          │
+                 └───────────────┬─────────────────────────────────────────────────────┘
+                                 │ NEXT_PUBLIC_API_URL (stopped since October 2026)
+                 ┌───────────────▼──────────── Spring Boot 3.5 (backend/) ─────────────┐
+                 │ AvailabilityScheduler (every 15 min) ──► PnrResaClient + jsoup      │
+                 │   StockTableParser ──► AvailabilitySyncService ──► transitions      │
+                 │ NotificationService ──► Resend (immediate alerts)                   │
+                 │ DigestScheduler (07:00 Europe/Paris) ──► morning digest             │
+                 │ REST: /api/refuges, /api/places, /api/abonnements, /api/ouverture,  │
+                 │       /api/checkout, /api/paddle/webhook, /api/health               │
+                 │ Paddle Billing (checkout + signed webhooks)                         │
+                 └───────────────┬─────────────────────────────────────────────────────┘
+                                 ▼
+                       PostgreSQL 16 (Flyway migrations V1–V4)
 ```
 
-Les variables de l'API sont dans `.env.example`, celles du site dans `frontend/.env.example`.
+- **Scraping:** the backend reads the Park's public stock page, parses it with jsoup and stores one row per refuge, accommodation type and night. An alert fires only on a "full → available" transition.
+- **Opening-day list:** runs entirely on Vercel and Resend, independent of the API. The address joins the list only after a click on a confirmation page (not on link open, because mail scanners open links). Links are HMAC-signed and expire after 7 days; confirmation emails are idempotent and capped per day. Details in [docs/liste-ouverture.md](docs/liste-ouverture.md) (French).
+
+## Stack
+
+| Part | Technologies |
+| --- | --- |
+| `frontend/` | Next.js 15 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS 4, Resend SDK |
+| `backend/` | Java 21, Spring Boot 3.5 (Web, Data JPA, Validation), Flyway, PostgreSQL, jsoup, Paddle Billing API |
+| `e2e/` | Playwright, run against the deployed site |
+| Hosting | Vercel (site); the API ran on Render with PostgreSQL until October 2026 |
+
+## Run locally
+
+Requirements: Node.js 22.18+ (the frontend tests use native TypeScript stripping), Java 21, Maven, Docker.
+
+```bash
+# Database (PostgreSQL on port 5433)
+docker compose up -d
+
+# API: variables documented in .env.example (local defaults work as-is)
+cd backend && mvn spring-boot:run
+
+# Site: copy frontend/.env.example to frontend/.env.local and fill what you need
+cd frontend && npm ci && npm run dev    # http://localhost:3000
+```
+
+Without Resend variables, the opening-day form answers with a 503 and the rest of the site works.
+
+## Tests
+
+```bash
+cd frontend && npm test          # Node test runner, Resend mocked
+cd frontend && npm run lint
+cd backend && mvn test           # JUnit 5 unit tests, no database needed
+
+# End-to-end, against a deployed site (variables in e2e/.env.example)
+cd e2e && npm ci && npx playwright install chromium && E2E_EMAIL=you+e2e@example.com npx playwright test
+```
+
+## Repository layout
+
+```
+backend/    Spring Boot API: scraper, alerts, Paddle billing, Flyway migrations
+frontend/   Next.js site and the opening-day list route
+e2e/        Playwright scenarios
+docs/       Technical notes (opening-day list)
+render.yaml Former Render blueprint for the API
+```
+
+## License
+
+No license: all rights reserved. The code is public for reading; reuse requires permission.

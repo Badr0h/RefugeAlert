@@ -38,9 +38,7 @@ La propriété `source` doit exister dans Resend (Audience, Properties) : elle a
 
 ## Compter les inscrits
 
-Dans Resend, menu Audience, liste « AlerteGR20 — Ouverture 2027 » : le nombre de contacts est le chiffre à comparer aux seuils du plan (100 adresses confirmées au 31 décembre 2026, environ 250 au 31 janvier 2027). Pour le détail par canal, filtrer ou exporter les contacts par la propriété `source`.
-
-Au 24 octobre 2026 : 2 contacts, les 2 inscrits d'octobre repris de l'ancienne liste de l'API.
+Dans Resend, menu Audience, liste « AlerteGR20 — Ouverture 2027 » : le nombre de contacts est le nombre d'inscrits confirmés. Pour le détail par canal, filtrer les contacts par la propriété `source`.
 
 ## Le jour de l'annonce du Parc
 
@@ -60,8 +58,8 @@ Au 24 octobre 2026 : 2 contacts, les 2 inscrits d'octobre repris de l'ancienne l
 - **« Beaucoup d'inscriptions aujourd'hui » (code 429) :** le plafond quotidien est atteint. Si c'est un vrai pic (un post qui marche), monter `OUVERTURE_DAILY_CAP` sur Vercel et redéployer. Si ce sont des robots, regarder les adresses dans Resend (Emails) et passer à Turnstile.
 - **« La confirmation est momentanément indisponible » sur la page de confirmation :** `OUVERTURE_TOKEN_SECRET` manque sur Vercel. Le lien redevient bon dès que la variable est remise.
 - **« Ce lien n'est plus valable » sur la page de confirmation :** le lien a plus de 7 jours, ou `OUVERTURE_TOKEN_SECRET` a changé. L'inscrit recommence depuis le formulaire.
-- **Changer la clé Resend :** créer une nouvelle clé avec accès complet dans Resend, la mettre dans `RESEND_API_KEY` sur Vercel (production), redéployer, puis supprimer l'ancienne clé `alertegr20-vercel-ouverture`.
+- **Changer la clé Resend :** créer une nouvelle clé avec accès complet dans Resend, la mettre dans `RESEND_API_KEY` sur Vercel (production), redéployer, puis supprimer l'ancienne clé.
 
 ## Les anciens inscrits de l'API
 
-Avant le 24 octobre 2026, la liste était gérée par l'API Spring Boot (table `inscriptions_ouverture`). Les 2 inscrits d'octobre ont été ajoutés à la liste Resend. Leur ancien lien de désinscription (`/desabonner?token=…`) passe par l'API arrêtée et ne marche pas : le lien Resend de l'email d'ouverture le remplace.
+Avant le 24 octobre 2026, la liste était gérée par l'API Spring Boot (table `inscriptions_ouverture`). Les inscrits de cette table ont été ajoutés à la liste Resend. Leur ancien lien de désinscription (`/desabonner?token=…`) passe par l'API arrêtée et ne marche pas : le lien Resend de l'email d'ouverture le remplace.
