@@ -164,7 +164,9 @@ Pas avant les chiffres du 31 décembre et du 28 février, et peut-être jamais :
 
 ## L'argent
 
-Projet pour le CV, avec un petit billet de loterie. Ordres de grandeur estimés par Claude pour 500 à 1 000 personnes : affiliation 30 à 150 € par saison, pourboire 10 à 50 €, partenaire local 100 à 300 € (seulement au-delà de 800 à 1 000 contacts). Gagner vraiment de l'argent demanderait de posséder l'audience (un site de contenu GR20, 12 à 24 mois de SEO) : c'est un autre projet, incompatible avec le PFE.
+Mise à jour du 24 octobre 2026 : l'objectif est maintenant de gagner de l'argent. La recherche de marché montre que le GR20 seul ne le permet pas (concurrent gratuit, 0 paiement en 2026). La piste retenue est un pilote payant sur Carros de Foc, dans les Pyrénées catalanes, où aucune alerte n'existe : voir [plan-pilote-carros-de-foc.md](plan-pilote-carros-de-foc.md). Le GR20 reste en pilote automatique.
+
+Avant cette décision : projet pour le CV, avec un petit billet de loterie. Ordres de grandeur estimés par Claude pour 500 à 1 000 personnes : affiliation 30 à 150 € par saison, pourboire 10 à 50 €, partenaire local 100 à 300 € (seulement au-delà de 800 à 1 000 contacts). Gagner vraiment de l'argent demanderait de posséder l'audience (un site de contenu GR20, 12 à 24 mois de SEO) : c'est un autre projet, incompatible avec le PFE.
 
 La valeur CV est réelle : double confirmation, jetons signés, idempotence, tests, seuils d'arrêt fixés d'avance. Les heures vont aux tests, à la fiabilité et à la documentation, pas aux fonctionnalités.
 
