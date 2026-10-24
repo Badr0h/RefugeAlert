@@ -44,6 +44,7 @@ export function generateMetadata(): Metadata {
 
 export default async function PlacesPage() {
   const board = await fetchPlaces();
+  const off = seasonOver();
 
   return (
     <SiteFrame>
@@ -104,6 +105,11 @@ export default async function PlacesPage() {
               <PlacesBoard board={board} />
             )}
           </>
+        ) : off ? (
+          <p className="mt-6 max-w-[48ch] text-lg leading-relaxed">
+            La saison 2026 est terminée et le tableau ne lit plus le site du Parc. Il reviendra avec
+            la saison 2027.
+          </p>
         ) : (
           <p className="mt-6 text-lg text-blaze" role="alert">
             Les places n&apos;ont pas pu être chargées.
@@ -111,10 +117,10 @@ export default async function PlacesPage() {
         )}
         <p className="mt-10 text-lg">
           <Link
-            href="/#alerter"
+            href={off ? "/ouverture-2027#prevenir" : "/#alerter"}
             className="inline-flex min-h-11 items-center font-bold text-pine underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
           >
-            Créer une alerte
+            {off ? "Être prévenu de l'ouverture des réservations 2027" : "Créer une alerte"}
           </Link>
         </p>
       </main>

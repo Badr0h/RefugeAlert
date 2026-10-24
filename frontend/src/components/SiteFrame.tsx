@@ -73,6 +73,9 @@ export function SiteFrame({
               <Link href="/mentions" className={`${linkClass} inline-block py-2`}>
                 Mentions
               </Link>
+              <Link href="/confidentialite" className={`${linkClass} inline-block py-2`}>
+                Confidentialité
+              </Link>
             </nav>
           </footer>
         </div>

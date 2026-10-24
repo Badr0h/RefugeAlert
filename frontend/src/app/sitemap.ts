@@ -8,12 +8,13 @@ const SITE = "https://alertegr20.com";
  * lastmod qui change à chaque build : on la met à jour à la main quand le contenu change.
  */
 const UPDATED = {
-  home: "2026-10-01",
-  places: "2026-10-01",
-  ouverture: "2026-10-01",
-  refuges: "2026-10-01",
-  aPropos: "2026-10-01",
-  mentions: "2026-10-01",
+  home: "2026-10-24",
+  places: "2026-10-24",
+  ouverture: "2026-10-24",
+  refuges: "2026-10-24",
+  aPropos: "2026-10-24",
+  mentions: "2026-10-24",
+  confidentialite: "2026-10-24",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,5 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${SITE}/a-propos`, lastModified: UPDATED.aPropos, priority: 0.5 },
     { url: `${SITE}/mentions`, lastModified: UPDATED.mentions, priority: 0.3 },
+    { url: `${SITE}/confidentialite`, lastModified: UPDATED.confidentialite, priority: 0.3 },
   ];
 }

@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test src/lib/*.test.ts"
+    "test": "node --test --test-reporter=spec src/lib/*.test.ts"
   },
   "dependencies": {
     "next": "15.5.26",

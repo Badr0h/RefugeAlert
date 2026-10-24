@@ -122,13 +122,19 @@ export default async function RefugePage({ params }: RefugePageProps) {
           <h2 className="font-[family-name:var(--font-sign)] text-3xl font-bold text-ink">
             Disponibilités
           </h2>
-          <RefugeStock
-            refuge={stock}
-            du={board?.du}
-            au={board?.au}
-            derniereLecture={board?.derniereLecture ?? null}
-            captionName={refuge.searchName}
-          />
+          {off && !board ? (
+            <p className="mt-4 max-w-[48ch] text-lg leading-relaxed">
+              Le tableau de ce refuge reviendra avec la saison 2027.
+            </p>
+          ) : (
+            <RefugeStock
+              refuge={stock}
+              du={board?.du}
+              au={board?.au}
+              derniereLecture={board?.derniereLecture ?? null}
+              captionName={refuge.searchName}
+            />
+          )}
         </section>
 
         <section className="mt-10 max-w-md border-t border-line pt-8">

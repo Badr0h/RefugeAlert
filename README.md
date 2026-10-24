@@ -7,9 +7,9 @@ Le site est sur https://alertegr20.com. Les places officielles sont sur https://
 ## État au 24 octobre 2026
 
 - **Le site est en ligne** sur Vercel (projet `refugealert`, déployé à chaque push sur `main`).
-- **La liste « prévenez-moi le jour de l'ouverture » fonctionne**, sans l'API. Elle tourne sur Vercel et Resend, avec double confirmation. Voir [docs/liste-ouverture.md](docs/liste-ouverture.md).
-- **L'API Spring Boot est arrêtée** depuis la fin de la saison 2026. Les alertes refuge, le tableau des places et le paiement ne marchent pas tant qu'elle n'est pas relancée.
-- **Le projet est en phase de test de la demande.** Décision le 31 décembre 2026 selon le nombre d'inscrits. Voir [docs/plan-relance-2027.md](docs/plan-relance-2027.md).
+- **La liste « prévenez-moi le jour de l'ouverture » fonctionne**, sans l'API. Elle tourne sur Vercel et Resend, avec double confirmation, plafond quotidien et suivi de la source de chaque inscrit. Voir [docs/liste-ouverture.md](docs/liste-ouverture.md). Ce qui est gardé est expliqué sur [/confidentialite](https://alertegr20.com/confidentialite).
+- **L'API Spring Boot est arrêtée** depuis la fin de la saison 2026. Les alertes refuge, le tableau des places et le paiement ne marchent pas tant qu'elle n'est pas relancée. Le site l'indique hors saison au lieu d'afficher une erreur.
+- **Le projet est en phase de test de la demande.** Décisions le 31 décembre 2026 (100 inscrits confirmés), le 31 janvier et le 28 février 2027. Voir [docs/plan-relance-2027.md](docs/plan-relance-2027.md).
 
 ## Code
 

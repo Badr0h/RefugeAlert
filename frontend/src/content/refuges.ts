@@ -182,5 +182,5 @@ export function refugeByDbSlug(slug: string): RefugePageContent | undefined {
 
 /** Description Google entre deux saisons : rien à vendre, seulement la liste 2027. */
 export function offSeasonDescription(refuge: RefugePageContent): string {
-  return `${refuge.searchName} sur le GR20 : réservations 2027 pas encore ouvertes. Soyez prévenu le jour où le Parc ouvre pnr-resa.corsica, puis quand une place se libère.`;
+  return `${refuge.searchName} sur le GR20 : réservations 2027 pas encore ouvertes. Soyez prévenu par email, gratuitement, le jour où le Parc ouvre pnr-resa.corsica.`;
 }

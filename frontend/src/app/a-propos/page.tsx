@@ -7,7 +7,7 @@ import { breadcrumb, founder, ORGANIZATION_ID } from "../../content/schema";
 
 const title = "À propos d'AlerteGR20 — qui fait le site et comment";
 const description =
-  "AlerteGR20 est fait par Badreddine Oussaih, développeur. Le site lit pnr-resa.corsica toutes les 15 minutes et écrit quand une place de refuge GR20 se libère.";
+  "AlerteGR20 est fait par Badreddine Oussaih, développeur. Le site prévient quand une place de refuge GR20 se libère, et le jour de l'ouverture des réservations.";
 
 export const metadata: Metadata = {
   title,
@@ -90,19 +90,20 @@ export default function AProposPage() {
           <h2 className={headingClass}>Comment ça marche</h2>
           <ul className="mt-3 flex max-w-[48ch] list-disc flex-col gap-3 pl-5 text-lg leading-relaxed">
             <li>
-              Toutes les 15 minutes, jour et nuit, le site lit les places publiques des 12 refuges
-              du GR20 sur pnr-resa.corsica : bivouac, bât-flanc et tente.
+              Pendant la saison 2026, le site lisait toutes les 15 minutes les places publiques des
+              12 refuges du GR20 sur pnr-resa.corsica, et envoyait un email quand une nuit passait
+              de complet à libre.
             </li>
             <li>
-              Quand une nuit passe de complet à libre, un email part. Gratuit à 7&nbsp;h, heure de
-              Paris, ou tout de suite avec l&apos;alerte immédiate à 9,90&nbsp;€ pour la saison.
+              La saison est terminée : ces alertes sont arrêtées. Les alertes de place pour 2027
+              seront annoncées aux inscrits.
             </li>
             <li>
-              Le tableau de toutes les places est public, sur la page{" "}
-              <Link href="/places" className={linkClass}>
-                Disponibilités
-              </Link>
-              .
+              En attendant, la{" "}
+              <Link href="/ouverture-2027" className={linkClass}>
+                liste de l&apos;ouverture 2027
+              </Link>{" "}
+              vous écrit une seule fois, le jour où le Parc ouvre les réservations.
             </li>
           </ul>
         </section>
@@ -126,8 +127,11 @@ export default function AProposPage() {
           <div className="mt-3 flex max-w-[48ch] flex-col gap-4 text-lg leading-relaxed">
             <p>
               Il n&apos;y a pas de compte. Votre email sert uniquement à vous écrire, et chaque
-              email contient un lien pour vous désinscrire. Le paiement passe par Paddle :
-              AlerteGR20 ne voit jamais votre carte.
+              email contient un lien pour vous désinscrire. Le détail est sur la page{" "}
+              <Link href="/confidentialite" className={linkClass}>
+                confidentialité
+              </Link>
+              .
             </p>
           </div>
         </section>

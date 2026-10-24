@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFrame } from "../../../components/SiteFrame";
-import { emailFromToken, OuvertureUnavailableError } from "../../../lib/ouverture";
+import { claimsFromToken, OuvertureUnavailableError } from "../../../lib/ouverture";
 import { confirmerInscription } from "./actions";
+import { SubmitButton } from "./SubmitButton";
 
 export const metadata: Metadata = {
   title: "Confirmer l'inscription — AlerteGR20",
@@ -14,15 +15,18 @@ const linkClass =
 
 type SearchParams = Promise<{ token?: string; statut?: string }>;
 
-function readEmail(token: string | undefined): string | null {
+type TokenState = { kind: "valid"; email: string } | { kind: "invalid" } | { kind: "unavailable" };
+
+function readToken(token: string | undefined): TokenState {
   if (!token) {
-    return null;
+    return { kind: "invalid" };
   }
   try {
-    return emailFromToken(token);
+    const claims = claimsFromToken(token);
+    return claims ? { kind: "valid", email: claims.email } : { kind: "invalid" };
   } catch (error) {
     if (error instanceof OuvertureUnavailableError) {
-      return null;
+      return { kind: "unavailable" };
     }
     throw error;
   }
@@ -30,7 +34,12 @@ function readEmail(token: string | undefined): string | null {
 
 export default async function ConfirmerPage({ searchParams }: { searchParams: SearchParams }) {
   const { token, statut } = await searchParams;
-  const email = statut === "confirme" ? null : readEmail(token);
+  const state: TokenState | null =
+    statut === "confirme"
+      ? null
+      : statut === "indisponible"
+        ? { kind: "unavailable" }
+        : readToken(token);
 
   return (
     <SiteFrame>
@@ -39,7 +48,7 @@ export default async function ConfirmerPage({ searchParams }: { searchParams: Se
           Ouverture des réservations 2027
         </h1>
         <div className="mt-6 flex max-w-[48ch] flex-col gap-4 text-lg leading-relaxed">
-          {statut === "confirme" ? (
+          {state === null ? (
             <>
               <p className="text-pine">C&apos;est confirmé. Vous êtes sur la liste.</p>
               <p>
@@ -48,11 +57,11 @@ export default async function ConfirmerPage({ searchParams }: { searchParams: Se
               </p>
               <p>
                 <Link href="/places" className={linkClass}>
-                  Voir les refuges et les disponibilités
+                  Voir les refuges du GR20
                 </Link>
               </p>
             </>
-          ) : email ? (
+          ) : state.kind === "valid" ? (
             <>
               {statut === "erreur" ? (
                 <p className="text-blaze" role="status">
@@ -60,19 +69,19 @@ export default async function ConfirmerPage({ searchParams }: { searchParams: Se
                 </p>
               ) : null}
               <p>
-                Confirmez que <strong>{email}</strong> doit recevoir l&apos;email du jour de l&apos;ouverture
-                des réservations.
+                Confirmez que <strong>{state.email}</strong> doit recevoir l&apos;email du jour de
+                l&apos;ouverture des réservations.
               </p>
               <form action={confirmerInscription}>
                 <input type="hidden" name="token" value={token} />
-                <button
-                  type="submit"
-                  className="min-h-12 rounded-md bg-blaze px-4 text-lg font-bold text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
-                >
-                  Confirmer mon inscription
-                </button>
+                <SubmitButton />
               </form>
             </>
+          ) : state.kind === "unavailable" ? (
+            <p className="text-blaze" role="status">
+              La confirmation est momentanément indisponible. Votre lien reste valable 7 jours :
+              réessayez un peu plus tard.
+            </p>
           ) : (
             <>
               <p>Ce lien n&apos;est plus valable. Il expire au bout de 7 jours.</p>

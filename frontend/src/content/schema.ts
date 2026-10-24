@@ -21,7 +21,7 @@ export const organization = {
   logo: `${SITE}/apple-icon`,
   email: "oussaihbadreddine@gmail.com",
   description:
-    "AlerteGR20 lit les disponibilités des refuges du GR20 sur pnr-resa.corsica toutes les 15 minutes et prévient par email quand une place se libère. Le site ne réserve pas.",
+    "AlerteGR20 prévient par email quand une place se libère dans un refuge du GR20, et le jour où le Parc ouvre les réservations sur pnr-resa.corsica. Le site ne réserve pas.",
   areaServed: "Corse",
   foundingDate: "2026-09",
   founder: { "@id": founder["@id"] },

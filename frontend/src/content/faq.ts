@@ -65,11 +65,11 @@ export const offSeasonFaqs = [
   {
     question: "Combien coûte l'alerte ?",
     answer:
-      "L'inscription pour l'ouverture 2027 est gratuite. Pendant la saison, le récapitulatif du matin est gratuit et l'alerte immédiate coûte 9,90 € en un seul paiement. Le prix 2027 sera affiché quand le Parc publiera la saison.",
+      "L'inscription pour l'ouverture 2027 est gratuite, et il n'y a rien à payer aujourd'hui. Les alertes de place pour la saison 2027 seront annoncées aux inscrits.",
   },
 ] as const;
 
 export const offSeasonHomeTitle = "Refuges GR20 2027 : réservation et alerte de place — AlerteGR20";
 
 export const offSeasonHomeDescription =
-  "Réservations des refuges du GR20 2027 : soyez prévenu le jour de l'ouverture sur pnr-resa.corsica, puis dès qu'une place se libère dans un refuge complet.";
+  "Réservations des refuges du GR20 2027 : soyez prévenu par email, gratuitement, le jour où le Parc ouvre les réservations sur pnr-resa.corsica.";

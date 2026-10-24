@@ -106,14 +106,7 @@ export default function OuverturePage() {
             <a href="https://pnr-resa.corsica" className={linkClass}>
               pnr-resa.corsica
             </a>
-            . L&apos;alerte immédiate à 9,90 € reviendra quand la saison 2027 sera officielle.
-          </p>
-          <p>
-            Le{" "}
-            <Link href="/places" className={linkClass}>
-              tableau des disponibilités
-            </Link>{" "}
-            existe déjà. Il affichera 2027 quand le calendrier du Parc sera ouvert.
+            . Les alertes de place pour la saison 2027 seront annoncées aux inscrits.
           </p>
         </div>
 

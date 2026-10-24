@@ -27,6 +27,12 @@ const steps = [
   "On écrit à cet email.",
 ];
 
+const offSeasonSteps = [
+  "Laissez votre email.",
+  "Confirmez-le avec le lien reçu.",
+  "On vous écrit une fois, le jour où le Parc ouvre les réservations 2027.",
+];
+
 export function generateMetadata(): Metadata {
   const off = seasonOver();
   const title = off ? offSeasonHomeTitle : homeTitle;
@@ -181,7 +187,7 @@ export default function HomePage() {
 
           <div className="flex max-w-[40rem] flex-col gap-12">
             <ol className="flex flex-col gap-4">
-              {steps.map((step, index) => (
+              {(off ? offSeasonSteps : steps).map((step, index) => (
                 <li key={step} className="flex gap-4 text-lg leading-relaxed">
                   <span className="font-[family-name:var(--font-sign)] text-2xl font-bold text-pine">
                     {index + 1}

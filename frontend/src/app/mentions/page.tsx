@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SiteFrame } from "../../components/SiteFrame";
 import { socialImage } from "../../content/productSchema";
 
@@ -45,7 +46,21 @@ export default function MentionsPage() {
             </a>
             .
           </p>
-          <p>Le site est hébergé par Vercel. L&apos;API et la base sont hébergées par Render, à Francfort.</p>
+          <p>
+            Le site est hébergé par Vercel. Les emails partent par Resend, qui stocke aussi la liste
+            de l&apos;ouverture 2027. L&apos;API des alertes, hébergée par Render pendant la saison
+            2026, est arrêtée.
+          </p>
+          <p>
+            Ce qui est fait de votre email :{" "}
+            <Link
+              href="/confidentialite"
+              className="text-pine underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+            >
+              confidentialité
+            </Link>
+            .
+          </p>
           <p>
             Les places affichées viennent du site du parc, pnr-resa.corsica. AlerteGR20 ne réserve
             pas à votre place.

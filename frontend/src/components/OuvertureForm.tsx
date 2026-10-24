@@ -1,9 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 const fieldClass =
   "min-h-12 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine";
+
+/** `?src=` (or `utm_source`) from shared links, then the referring site, then "direct". */
+function signupSource(): string {
+  const params = new URLSearchParams(window.location.search);
+  const fromLink = params.get("src") ?? params.get("utm_source");
+  if (fromLink) {
+    return fromLink;
+  }
+  try {
+    const referrer = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+    return referrer && referrer !== window.location.hostname ? referrer : "direct";
+  } catch {
+    return "direct";
+  }
+}
 
 export function OuvertureForm() {
   const [email, setEmail] = useState("");
@@ -19,7 +35,7 @@ export function OuvertureForm() {
       const response = await fetch("/api/ouverture", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, website }),
+        body: JSON.stringify({ email, website, source: signupSource() }),
       });
       const payload = (await response.json().catch(() => null)) as { message?: string } | null;
       if (!response.ok) {
@@ -84,7 +100,14 @@ export function OuvertureForm() {
       </button>
       <p className="text-base leading-relaxed text-stone">
         Gratuit. Vous confirmez votre adresse en un clic, puis vous recevez un seul email le jour de
-        l&apos;annonce du Parc. Le lien de désinscription est dans cet email.
+        l&apos;annonce du Parc. Le lien de désinscription est dans cet email.{" "}
+        <Link
+          href="/confidentialite"
+          className="text-pine underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+        >
+          Vos données
+        </Link>
+        .
       </p>
     </form>
   );
