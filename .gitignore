@@ -1,13 +1,43 @@
+# Environment files (only the documented examples are versioned)
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
 target/
+.next/
+out/
+build/
+dist/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# Tests and reports
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# Logs
+*.log
+
+# Local configuration and data exports
+application-local.*
+exports/
+*.csv
+
+# Private notes kept outside the public tree
+docs/private/
+
+# IDE and OS files
 .idea/
 *.iml
 .classpath
 .project
 .settings/
-.env
-.env.local
-frontend/node_modules/
-frontend/.next/
-frontend/out/
-*.log
+.vscode/
+.cursor/
 .DS_Store
+Thumbs.db

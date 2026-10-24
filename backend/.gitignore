@@ -1,0 +1,10 @@
+target/
+*.log
+.env
+.env.*
+!.env.example
+src/main/resources/application-local.*
+.idea/
+*.iml
+.vscode/
+.DS_Store

@@ -4,8 +4,16 @@ import type { Page, TestInfo } from "@playwright/test";
 
 export const API_URL = process.env.E2E_API_URL ?? "https://refugealert.onrender.com";
 
-/** Adresse de test : un alias « + » de la boîte du propriétaire, facile à retrouver et à supprimer. */
-export const TEST_EMAIL = process.env.E2E_EMAIL ?? "oussaihbadreddine+e2e-alertegr20@gmail.com";
+/** Adresse de test : un alias « + » d'une boîte que vous lisez, facile à retrouver et à supprimer. */
+export const TEST_EMAIL = requiredEnv("E2E_EMAIL");
+
+function requiredEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} must be set (see e2e/.env.example).`);
+  }
+  return value;
+}
 
 export const SEASON_END = "2026-10-04";
 
